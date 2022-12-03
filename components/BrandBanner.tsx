@@ -19,7 +19,7 @@ const BrandBanner = ({}: BrandBannerProps) => {
 			className="w-screen min-h-[64px] max-h-[90px] relative px-1 grid md:flex md:flex-row md:justify-between md:items-center overflow-hidden"
 			id="BrandBanner-outer-container"
 		>
-			<div className="flex flex-col items-start justify-center h-full w-fit md:hidden">
+			<div className="flex flex-col items-start justify-center h-auto w-fit md:hidden">
 				<GiHamburgerMenu
 					className="fill-sky-700 h-[1.4rem] w-[1.4rem] ml-5 cursor-pointer"
 					onClick={handleDrawerToggle}

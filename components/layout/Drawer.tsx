@@ -86,14 +86,23 @@ export default connect(mapStateToProps)(Drawer);
 
 const animateBackdropEntrance = (isOpen: boolean) => {
 	let tl = gsap.timeline();
-	tl.to(`#drawer-backdrop`, {
-		scale: isOpen ? 1 : 0,
-		duration: 0,
-		immediateRender: true,
-	});
+	if (isOpen) {
+		tl.to(`#drawer-backdrop`, {
+			scale: isOpen ? 1 : 0,
+			duration: 0,
+			immediateRender: true,
+		});
+	}
 	tl.to(`#drawer-backdrop`, {
 		opacity: isOpen ? 1 : 0,
 		duration: 0.5,
 		ease: "Power3.out",
 	});
+	if (!isOpen) {
+		tl.to(`#drawer-backdrop`, {
+			scale: isOpen ? 1 : 0,
+			duration: 0,
+			immediateRender: true,
+		});
+	}
 };

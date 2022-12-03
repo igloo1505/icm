@@ -34,7 +34,7 @@ const BrandBanner = ({}: BrandBannerProps) => {
 				src={bannerLogoLeft}
 				alt="Brand logo"
 				priority
-				className="object-contain w-auto max-h-[75px] sm:max-h-[90px] md:max-w-full md:w-auto md:min-h-full relative md:left-2 h-min brandBannerLogo"
+				className="relative object-contain w-auto h-auto md:max-w-full md:w-auto md:min-h-full md:left-2 brandBannerLogo"
 			/>
 			<div className="flex-col items-end justify-center hidden gap-0 my-2 mr-8 md:flex">
 				<a

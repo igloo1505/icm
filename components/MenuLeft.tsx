@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
-
 import { useAppDispatch } from "../hooks/ReduxHooks";
 import { showToast } from "../state/actions";
 

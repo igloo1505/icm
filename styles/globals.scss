@@ -44,7 +44,7 @@ $drawer-close-transition: 0.35s ease-in-out;
 	transition: transform 0.3s ease-in-out;
 }
 .toastHide {
-	transform: translate(-50%, -130%);
+	transform: translate(-50%, -150%);
 	transition: transform 0.3s ease-in-out;
 }
 
@@ -96,9 +96,7 @@ $drawer-close-transition: 0.35s ease-in-out;
 	// max-width: 150px;
 	max-width: unset;
 	place-self: center;
-	// margin-top: 50%;
-	// margin-left: 50%;
-	// transform: translate(-50%, -50%);
+	max-height: 4rem;
 }
 
 .left-link-item {
@@ -134,3 +132,4 @@ $drawer-close-transition: 0.35s ease-in-out;
 }
 
 @import "./mediaQueries/md.scss";
+@import "./mediaQueries/sm.scss";

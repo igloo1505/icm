@@ -68,7 +68,7 @@ const Drawer = ({ drawer: { isOpen } }: DrawerProps) => {
 			</div>
 			<div
 				className={clsx(
-					"w-screen fixed top-0 left-0 h-screen z-[950] bg-black bg-opacity-30 duration-500"
+					"w-screen fixed top-0 left-0 h-screen z-[950] bg-black bg-opacity-30"
 				)}
 				id="drawer-backdrop"
 				onClick={handleBackdropClick}
@@ -99,10 +99,14 @@ const animateBackdropEntrance = (isOpen: boolean) => {
 		ease: "Power3.out",
 	});
 	if (!isOpen) {
-		tl.to(`#drawer-backdrop`, {
-			scale: isOpen ? 1 : 0,
-			duration: 0,
-			immediateRender: true,
-		});
+		tl.to(
+			`#drawer-backdrop`,
+			{
+				scale: isOpen ? 1 : 0,
+				duration: 0,
+				immediateRender: true,
+			},
+			"+=0.5"
+		);
 	}
 };

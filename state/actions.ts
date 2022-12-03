@@ -10,7 +10,7 @@ axios.defaults.headers.common = {
 
 const toastConfig = new ToastConfig(
 	"info",
-	"Currently local links are only for demonstration. Remote links should work appropriately",
+	"Currently local links are only for demonstration. Remote links should work appropriately.",
 	5000
 );
 

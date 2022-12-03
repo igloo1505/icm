@@ -7,7 +7,6 @@ import { toggleDrawer } from "../../state/actions";
 import gsap from "gsap";
 import { links } from "./Navbar";
 import { menuLeftLinks } from "../MenuLeft";
-
 import DrawerDropdown from "./DrawerDropdown";
 
 interface DrawerProps {

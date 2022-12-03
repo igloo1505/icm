@@ -12,7 +12,11 @@ const UIReducer = createReducer(initialState, (builder) => {
 	builder.addCase("SHOW_TOAST", (state, action: Types.SHOW_TOAST) => {
 		return {
 			...state,
-			toast: action.payload,
+			toast: {
+				message: action.payload.message,
+				type: action.payload.type,
+				delay: action.payload.delay,
+			},
 		};
 	});
 

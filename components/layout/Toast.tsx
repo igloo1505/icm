@@ -18,20 +18,36 @@ interface ToastProps {
 
 const Toast = ({ config }: ToastProps) => {
 	const [isShown, setIsShown] = useState(false);
+	const [cancelID, setCancelId] = useState<string | any>(null);
 	const dispatch = useAppDispatch();
 	const __timeout = config.delay || 3000;
-	const closeToast = () => {
-		if (!isShown) return;
-		setIsShown(false);
-		if (typeof window === "undefined") {
-			return;
+	console.log("stuff", isShown, cancelID, config.message);
+
+	const closeToast = (withTimeout: boolean) => {
+		// if (!isShown) return;
+		if (cancelID) {
+			clearTimeout(cancelID);
+			// dispatch(hideToast());
+			// setCancelId(null);
 		}
-		setTimeout(() => {
-			dispatch(hideToast());
-		}, 350);
+		let cancelId = setTimeout(
+			() => {
+				setIsShown(false);
+				if (typeof window === "undefined") {
+					return;
+				}
+				setTimeout(() => {
+					dispatch(hideToast());
+					setCancelId(null);
+				}, 300);
+			},
+			withTimeout ? __timeout : 0
+		);
+		setCancelId(cancelId);
 	};
 	useEffect(() => {
-		if (config.message) {
+		if (isShown) return;
+		if (config.message && config.message !== "" && !isShown && !cancelID) {
 			if (typeof window === "undefined") {
 				return;
 			}
@@ -39,25 +55,26 @@ const Toast = ({ config }: ToastProps) => {
 				.getElementById("main-toast-container")
 				?.classList.add(`bg-toast_${config.type}`);
 			setIsShown(true);
-			setTimeout(() => {
-				closeToast();
-			}, __timeout);
+			closeToast(true);
+			console.log("__timeout: ", __timeout);
 		}
 	}, [config]);
 
 	return (
 		<div
 			className={clsx(
-				`w-screen absolute top-0 left-0 z-[900] grid gap-2 py-3 px-3 bg-toast_${config.type}  toast-container-${config.type}`,
+				`w-max absolute top-[8px] left-[50%] z-[900] grid gap-2 py-3 px-3 bg-sky-700 toast-container  toast-container-${config.type}`,
 				isShown ? "toastShow" : "toastHide"
 			)}
 			id="main-toast-container"
 		>
 			<div className="text-white">{config.message}</div>
-			<BiX
-				className="w-6 h-6 cursor-pointer fill-white right-2 toastIcon"
-				onClick={closeToast}
-			/>
+			{config.message && (
+				<BiX
+					className="w-6 h-6 cursor-pointer fill-white right-2 toastIcon"
+					onClick={() => closeToast(false)}
+				/>
+			)}
 		</div>
 	);
 };

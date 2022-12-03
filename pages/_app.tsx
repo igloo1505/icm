@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }: AppProps) {
 		<Fragment>
 			<Provider store={store}>
 				<Drawer />
-				<Navbar />
 				<Toast />
 				<Component {...pageProps} />
 			</Provider>

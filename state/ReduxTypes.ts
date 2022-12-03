@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { createAction } from "@reduxjs/toolkit";
 import ToastConfig from "../types/ToastConfig";
 

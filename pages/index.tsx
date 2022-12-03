@@ -1,13 +1,19 @@
 // import styles from "../styles/Home.module.scss";
-import DrawerResponsiveCenter from "../components/layout/DrawerResponsiveCenter";
 
+import Navbar from "../components/layout/Navbar";
+import BrandBanner from "../components/BrandBanner";
+import LeftBannerContainer from "../components/layout/LeftBannerContainer";
+import Footer from "../components/layout/Footer";
 const Home = () => {
 	return (
-		<DrawerResponsiveCenter>
-			<div className="flex flex-col items-center justify-center">
-				Home in Typescript!
+		<div className="flex flex-col items-center justify-start w-screen min-h-screen">
+			<BrandBanner />
+			<Navbar />
+			<div className="leftBannerContainer-wrapper">
+				<LeftBannerContainer />
 			</div>
-		</DrawerResponsiveCenter>
+			<Footer />
+		</div>
 	);
 };
 

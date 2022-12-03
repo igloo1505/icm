@@ -1,58 +1,136 @@
-import React from "react";
-import { toggleDrawer, showToast } from "../../state/actions";
+import React, { useEffect } from "react";
+import gsap from "gsap";
+import { showToast } from "../../state/actions";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
-import ToastConfig, { ToastType } from "../../types/ToastConfig";
 interface NavbarProps {}
-interface NavLink {
+export interface NavLink {
 	text: string;
 	href?: string;
-	onClick?: () => void;
+	onClick: () => void | any;
 }
 
-// const SampleToast = ToastConfig(
-// 	"success",
-// 	"Sample Toast here so you remember the new structure in typescript"
-// );
-const getRandomType = (): string => {
-	let keys = Object.keys(ToastType);
-	return keys[Math.floor(Math.random() * keys.length)];
-};
-const SampleToast: ToastConfig = {
-	type: getRandomType() as ToastType,
-	message:
-		"Sample Toast here so you remember the new structure in typescript, and I'm making it extra long to make sure the padding works. Holy shit I'm homeless and sleeping in my car after dedicating the past 7-8 years to learning to program all because some girl wasn't interested.",
-};
+export const links: NavLink[] = [
+	{
+		text: "Home",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "Catalog",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "About Us",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "Departments",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "Facilities",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "Careers",
+		href: "#",
+		onClick: showToast,
+	},
+	{
+		text: "Contact Us",
+		href: "#",
+		onClick: showToast,
+	},
+];
 
 const Navbar = ({}: NavbarProps) => {
 	const dispatch = useAppDispatch();
-	const links: NavLink[] = [
-		{
-			text: "Sample Toast",
-			onClick: () => dispatch(showToast(SampleToast)),
-		},
-		{
-			text: "Toggle Drawer",
-			onClick: () => dispatch(toggleDrawer()),
-		},
-	];
+
+	useEffect(() => {
+		animateEntrance();
+	}, []);
 	return (
 		<div
-			className="fixed top-0 left-0 w-screen h-[64px] bg-black flex flex-row justify-between items-center px-5"
+			className="flex-row items-center justify-center hidden w-full gap-2 py-3 md:flex"
 			id="navbar-outer-container"
 		>
-			<div className="text-xl text-white">IglooDevelopment</div>
-			<div className="flex flex-row gap-2">
-				{links.map((l, i) => {
-					const { text } = l;
-					return (
-						<div className="text-white cursor-pointer" key={`navbar-link-${i}`}>
-							<a {...l}>{text}</a>
-						</div>
-					);
-				})}
-			</div>
+			{links.map((l, i, a) => {
+				return (
+					<div
+						className="flex flex-col items-center justify-center navbar-item"
+						key={`navbar-link-${i}`}
+						onMouseEnter={() => animateHover(i)}
+						onMouseLeave={() => cancelAnimation(i)}
+					>
+						<a
+							href={l.href}
+							onClick={() => {
+								dispatch(l.onClick());
+							}}
+							className="px-2 text-sm uppercase transition-all duration-200 text-sky-800 hover:text-orange-600"
+							style={{
+								...(i < a.length - 1 && { borderRight: "1px solid #bae6fd" }),
+							}}
+						>
+							{l.text}
+						</a>
+						<div
+							className="h-[4px] bg-sky-700 w-full navbar-underline"
+							id={`navbar-underline-${i}`}
+						/>
+					</div>
+				);
+			})}
 		</div>
 	);
 };
 
 export default Navbar;
+
+const animateHover = (index: number) => {
+	let tl = gsap.timeline();
+	tl.to(`#navbar-underline-${index}`, {
+		scaleX: 0,
+		duration: 0.2,
+		ease: "Power3.out",
+	});
+	tl.to(`#navbar-underline-${index}`, {
+		backgroundColor: "#ea580c",
+		duration: 0,
+		immediateRender: true,
+	});
+
+	tl.to(`#navbar-underline-${index}`, {
+		scaleX: 1,
+		duration: 0.2,
+		ease: "Power3.out",
+	});
+};
+
+const cancelAnimation = (index: number) => {
+	let tl = gsap.timeline();
+	tl.to(`#navbar-underline-${index}`, {
+		scaleX: 1,
+		backgroundColor: "#0369a1",
+		duration: 0.2,
+		ease: "Power3.out",
+	});
+};
+
+const animateEntrance = () => {
+	let tl = gsap.timeline();
+	tl.to(
+		".navbar-underline",
+		{
+			scaleX: 1,
+			duration: 0.3,
+			stagger: 0.1,
+			ease: "elastic.out(1, 0.6)",
+		},
+		"+=0.4"
+	);
+};

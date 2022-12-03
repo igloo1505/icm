@@ -8,10 +8,17 @@ axios.defaults.headers.common = {
 	"Content-Type": "application/json",
 };
 
-export const showToast = (toastConfig: ToastConfig): Types.SHOW_TOAST => ({
+const toastConfig = new ToastConfig(
+	"info",
+	"Currently local links are only for demonstration. Remote links should work appropriately",
+	5000
+);
+
+export const showToast = (): Types.SHOW_TOAST => ({
 	type: "SHOW_TOAST",
 	payload: toastConfig,
 });
+
 export const toggleDrawer = (shouldShow?: boolean): Types.TOGGLE_DRAWER => ({
 	type: "TOGGLE_DRAWER",
 	payload: shouldShow,
